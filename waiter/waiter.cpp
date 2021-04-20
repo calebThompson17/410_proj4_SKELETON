@@ -2,6 +2,7 @@
 #include "stdlib.h"
 
 #include "../includes/externs.h"
+#include "../includes/PRINT.h"
 #include "../includes/waiter.h"
 
 using namespace std;
@@ -40,9 +41,11 @@ void Waiter::beWaiter() {
 			// acquire the lock
 			unique_lock<mutex> lck(mutex_order_inQ);
 			order_in_Q.push(myOrder);  // Possibly need a deep-copy
+			PRINT4("Waiter (", id, ") add order #", myOrder.order_number);
 		}
 		cv_order_inQ.notify_all();
 	}
+	PRINT3("Waiter (", id, ") signing out");
 	b_WaiterIsFinished = true;
 	cv_order_inQ.notify_all();
 }
