@@ -57,7 +57,7 @@ void Baker::beBaker() {
 			if (!order_in_Q.empty()) {
 				myOrder = order_in_Q.front();
 				order_in_Q.pop();
-				PRINT6("Baker (", id, ") got order #", myOrder.order_number, "\torder_in_Q size:", order_in_Q.size());
+//				PRINT6("Baker (", id, ") got order #", myOrder.order_number, "\torder_in_Q size:", order_in_Q.size());
 			}
 		}
 		if (myOrder.order_number != UNINITIALIZED) {
@@ -69,7 +69,7 @@ void Baker::beBaker() {
 			}
 		}
 		if (order_in_Q.empty() && b_WaiterIsFinished) {
-			PRINT3("Baker (", id, ") signing out");
+//			PRINT3("Baker (", id, ") signing out");
 			break;
 		}
 	}

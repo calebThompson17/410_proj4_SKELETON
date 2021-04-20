@@ -87,7 +87,7 @@ void audit_results() {
 
 int main()
 {
-	//TODO your code here
+	//TODONE: your code here
 
 	// Initialize waiter and baker(s) objects
 	Waiter myWaiter = Waiter(1, "myInFile.txt");
