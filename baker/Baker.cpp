@@ -60,15 +60,17 @@ void Baker::beBaker() {
 				PRINT6("Baker (", id, ") got order #", myOrder.order_number, "\torder_in_Q size:", order_in_Q.size());
 			}
 		}
-		if (myOrder.order_number == UNINITIALIZED)
-			break;
-		bake_and_box(myOrder);
-		{
-			// deliver the order
-			unique_lock<mutex> lck(mutex_order_outQ);
-			order_out_Vector.push_back(myOrder);
+		if (myOrder.order_number != UNINITIALIZED) {
+			bake_and_box(myOrder);
+			{
+				// deliver the order
+				unique_lock<mutex> lck(mutex_order_outQ);
+				order_out_Vector.push_back(myOrder);
+			}
 		}
-		if (order_in_Q.empty() && b_WaiterIsFinished)
+		if (order_in_Q.empty() && b_WaiterIsFinished) {
+			PRINT3("Baker (", id, ") signing out");
 			break;
+		}
 	}
 }

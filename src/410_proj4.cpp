@@ -90,9 +90,10 @@ int main()
 	//TODO your code here
 
 	// Initialize waiter and baker(s) objects
-	Waiter myWaiter = Waiter(1, "in1.txt");
+	Waiter myWaiter = Waiter(1, "myInFile.txt");
+//	Waiter myWaiter = Waiter(1, "in1.txt");
 	vector<Baker> myBakers;
-	int numOfBakers = 2;
+	int numOfBakers = 17;
 	for (int i=0; i<numOfBakers; i++)
 		myBakers.push_back(Baker(i+1));
 
