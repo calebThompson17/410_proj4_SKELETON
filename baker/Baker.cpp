@@ -61,5 +61,7 @@ void Baker::beBaker() {
 			unique_lock<mutex> lck(mutex_order_outQ);
 			order_out_Vector.push_back(myOrder);
 		}
+		if (order_in_Q.empty() && b_WaiterIsFinished)
+			break;
 	}
 }

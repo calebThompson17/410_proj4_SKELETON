@@ -5,6 +5,7 @@
 #include <condition_variable>
 #include <vector>
 #include <string>
+#include <pthread.h>
 
 #include "../includes/box.h"
 #include "../includes/constants.h"
@@ -87,6 +88,28 @@ void audit_results() {
 int main()
 {
 	//TODO your code here
+
+	// Initialize waiter and baker(s) objects
+	Waiter myWaiter = Waiter(1, "in1.txt");
+	vector<Baker> myBakers;
+	int numOfBakers = 1;
+	for (int i=0; i<numOfBakers; i++)
+		myBakers.push_back(Baker(i+1));
+
+	// Start working threads
+	vector<thread> vecOfThreads;
+	vecOfThreads.push_back(thread(&Waiter::beWaiter, myWaiter));
+	for (Baker baker: myBakers) {
+		vecOfThreads.push_back(thread(&Baker::beBaker, baker));
+	}
+
+	// wait for all threads to finish
+	for (auto& t: vecOfThreads)
+		t.join();
+
+	// print results
+	audit_results();
+
 	return SUCCESS;
 }
 
