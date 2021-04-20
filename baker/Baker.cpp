@@ -3,6 +3,7 @@
 #include "../includes/baker.h"
 #include "../includes/box.h"
 #include "../includes/externs.h"
+#include "../includes/PRINT.h"
 
 using namespace std;
 
@@ -51,9 +52,11 @@ void Baker::beBaker() {
 		{
 			// get the order
 			unique_lock<mutex> lck(mutex_order_inQ);
-			if (order_in_Q.empty() || !b_WaiterIsFinished)
+			if (order_in_Q.empty() && !b_WaiterIsFinished)
 				cv_order_inQ.wait(lck);
 			myOrder = order_in_Q.front();
+			order_in_Q.pop();
+			PRINT4("Baker (", id, ") got order #", myOrder.order_number);
 		}
 		bake_and_box(myOrder);
 		{
