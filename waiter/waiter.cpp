@@ -44,5 +44,6 @@ void Waiter::beWaiter() {
 		cv_order_inQ.notify_all();
 	}
 	b_WaiterIsFinished = true;
+	cv_order_inQ.notify_all();
 }
 
